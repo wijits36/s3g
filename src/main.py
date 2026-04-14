@@ -1,9 +1,16 @@
-from textnode import TextNode
+import os
+import shutil
+
+from copystatic import copy_files_recursive
+
+dir_path_static = "./static"
+dir_path_public = "./public"
 
 
 def main():
-    text_node = TextNode("Hello there!", "plain")
-    print(text_node)
+    if os.path.exists(dir_path_public):
+        shutil.rmtree(dir_path_public)
+    copy_files_recursive(dir_path_static, dir_path_public)
 
 
 if __name__ == "__main__":
