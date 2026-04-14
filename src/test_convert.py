@@ -18,7 +18,7 @@ from convert import (
 from textnode import TextNode, TextType
 
 
-class TestHTMLNode(unittest.TestCase):
+class TestConvert(unittest.TestCase):
     # text_node_to_html_node tests
     def test_text(self):
         node = TextNode("This is a text node", TextType.TEXT)
