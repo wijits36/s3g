@@ -19,17 +19,17 @@ This generator automates the process of building a website from structured conte
 
 ### Installation
 Clone the repository:
-`git clone https://github.com/wijits36/s3g`
-`cd s3g`
+- `git clone https://github.com/wijits36/s3g`
+- `cd s3g`
 
 ### Running the Generator
 To build the site and generate the static files in the `/docs` directory, run:
-`./main.sh`
+- `./main.sh`
 
 ### Viewing the Site
 You can view your generated site using Python's built-in HTTP server:
-`cd docs`
-`python3 -m http.server 8888`
+- `cd docs`
+- `python3 -m http.server 8888`
 
 Then, navigate to http://localhost:8888 in your web browser.
 
