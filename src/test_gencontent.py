@@ -2,7 +2,7 @@ import os
 import tempfile
 import unittest
 
-from gencontent import extract_title, generate_pages_recursive
+from gencontent import extract_title, generate_page, generate_pages_recursive
 
 
 class TestGenContent(unittest.TestCase):
@@ -129,3 +129,41 @@ class TestGenContent(unittest.TestCase):
             self.assertTrue(
                 os.path.exists(os.path.join(dest_dir, "blog", "post", "index.html"))
             )
+
+    def _make_temp_page(self, basepath):
+        """Helper to generate a page with a given basepath and return the HTML."""
+        template = """<html>
+<head><title>{{ Title }}</title></head>
+<body>
+<a href="/about">About</a>
+<img src="/images/photo.png">
+{{ Content }}
+</body>
+</html>"""
+        markdown = "# Test Page\n\nHello world"
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            md_path = os.path.join(tmpdir, "test.md")
+            tpl_path = os.path.join(tmpdir, "template.html")
+            dest_path = os.path.join(tmpdir, "output.html")
+
+            with open(md_path, "w") as f:
+                f.write(markdown)
+            with open(tpl_path, "w") as f:
+                f.write(template)
+
+            generate_page(basepath, md_path, tpl_path, dest_path)
+
+            with open(dest_path, "r") as f:
+                return f.read()
+
+    def test_basepath_default(self):
+        result = self._make_temp_page("/")
+        self.assertIn('href="/about"', result)
+        self.assertIn('src="/images/photo.png"', result)
+
+    def test_basepath_custom(self):
+        result = self._make_temp_page("/my-repo/")
+        self.assertIn('href="/my-repo/about"', result)
+        self.assertIn('src="/my-repo/images/photo.png"', result)
+        self.assertNotIn('href="/about"', result)
