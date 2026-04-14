@@ -40,7 +40,7 @@ class TestGenContent(unittest.TestCase):
             with open(md_path, "w") as f:
                 f.write("# Hello")
 
-            generate_pages_recursive(content_dir, template_file.name, dest_dir)
+            generate_pages_recursive("/", content_dir, template_file.name, dest_dir)
 
             output_path = os.path.join(dest_dir, "index.html")
             self.assertTrue(os.path.exists(output_path))
@@ -61,7 +61,7 @@ class TestGenContent(unittest.TestCase):
             with open(md_path, "w") as f:
                 f.write("# Nested")
 
-            generate_pages_recursive(content_dir, template_file.name, dest_dir)
+            generate_pages_recursive("/", content_dir, template_file.name, dest_dir)
 
             output_path = os.path.join(dest_dir, "blog", "post", "index.html")
             self.assertTrue(os.path.exists(output_path))
@@ -79,7 +79,7 @@ class TestGenContent(unittest.TestCase):
             with open(txt_path, "w") as f:
                 f.write("not markdown")
 
-            generate_pages_recursive(content_dir, template_file.name, dest_dir)
+            generate_pages_recursive("/", content_dir, template_file.name, dest_dir)
 
             output_path = os.path.join(dest_dir, "notes.html")
             self.assertFalse(os.path.exists(output_path))
@@ -100,7 +100,7 @@ class TestGenContent(unittest.TestCase):
             with open(md_path, "w") as f:
                 f.write("# Guide")
 
-            generate_pages_recursive(content_dir, template_file.name, dest_dir)
+            generate_pages_recursive("/", content_dir, template_file.name, dest_dir)
 
             output_dir = os.path.join(dest_dir, "docs", "guide")
             self.assertTrue(os.path.exists(output_dir))
@@ -123,7 +123,7 @@ class TestGenContent(unittest.TestCase):
             with open(os.path.join(nested_dir, "index.md"), "w") as f:
                 f.write("# Post")
 
-            generate_pages_recursive(content_dir, template_file.name, dest_dir)
+            generate_pages_recursive("/", content_dir, template_file.name, dest_dir)
 
             self.assertTrue(os.path.exists(os.path.join(dest_dir, "index.html")))
             self.assertTrue(
